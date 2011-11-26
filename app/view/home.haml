@@ -1,0 +1,29 @@
+-# coding: utf-8
+!!! 5
+%html
+  %head
+    %meta( charset="utf-8" )
+    %style
+      = "@import url(#{url("/stylesheets/bootstrap.min.css")});"
+    :css
+      .fatal { border-bottom:1px dotted #F00; }
+      .warn, .error { border-bottom:1px dotted #FF7300; background-color:#FEE9CC; }
+      .info { border-bottom:1px dotted #0F0; }
+      .msg { color: #F00; font-weight:bold; }
+      pre code { line-height:1.5; }
+      code { background-color:transparent; }
+      #src { width: 800px; height: 300px; }
+      .input { width: 100%; height: 100%; }
+  %body
+    %script( src="http://style.china.alibaba.com/js/lib/fdev-v4/core/fdev-min.js" )
+    %script{ :src => url("/scripts/check.js") }
+    .container
+      .sidebar
+        .actions
+          %button.submit.btn.primary 检查
+          或者
+          %input.browse(type="file") 
+          或将文件拖放到到文本框内
+        %textarea.input( placeholder="在此输入代码，或将文件拖到这里" )
+      .content
+        #src

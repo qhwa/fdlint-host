@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>upload test</title>
+        <script src="scripts/html5uploader.js"></script>
+        <style>
+            #drop { width:200px; height:200px; border:2px dashed #ff7300; }
+        </style>
+    </head>
+
+    <body>
+        <div id="box">
+            <div id="status">drag files to here</div>
+            <div id="drop"></div>
+        </div>
+
+
+        <script>
+            new uploader('drop', 'status', '/', null);
+        </script>
+    </body>
+</html>

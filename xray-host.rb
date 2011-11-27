@@ -19,20 +19,21 @@ get('/') do
 end
 
 post '/' do
-  if params['base64']
-    bin = Base64.decode64(request.body.read) 
-  else
-    bin = params['data']
+  bin = params['data']
+  if Hash === bin and bin[:tempfile]
+    name = bin[:filename]
+    bin = bin[:tempfile].read 
   end
   text, encoding = readstr(bin)
-  format_result text, *$runner.check_css(text)
+  format_result name, text, *$runner.check(text)
 end
 
-def format_result(text, succ, results)
+def format_result(name, text, succ, results=[])
   if succ
     JSON.fast_generate({
       :src      => text,
-      :success  => succ
+      :success  => succ,
+      :filename => name
     })
   else
     inf = results.inject([]) do |sum, r|
@@ -46,7 +47,8 @@ def format_result(text, succ, results)
     JSON.fast_generate({
       :src      => text,
       :success  => succ,
-      :info     => inf
+      :info     => inf,
+      :filename => name
     })
   end
 end

@@ -30,7 +30,9 @@
     %script{ :src => url("/scripts/check.js?v=20120109") }
     .container
       .actions
-        在文本框中输入代码并检查，或将文件拖放到到文本框内
+        %ul
+          %li 输入代码，选择相应的语法，点击检查按钮
+          %li 或将文件拖到文本框内 （可多选）
       %textarea.input( placeholder="在此输入代码，或将文件拖到这里" )
       %p
         类型

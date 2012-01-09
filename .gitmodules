@@ -1,0 +1,3 @@
+[submodule "lib/xray"]
+	path = lib/xray
+	url = git://github.com/qhwa/fdev-xray.git

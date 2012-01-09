@@ -4,11 +4,6 @@ jQuery(function($){
     $('.submit').bind('click', function(){
       check($('.input').val());
     });
-    $('.input').bind('focus', function(){
-      $(this).animate({height:'500px'});
-    }).bind('blur', function(){
-      $(this).animate({height:'150px'});
-    }).focus();
   }
 
   function check(code){
@@ -25,7 +20,8 @@ jQuery(function($){
 
   function send(code, handler){
     $.post('', {
-      data: code
+      data: code,
+      type: $('select').val()
     }, handler);
   }
 
@@ -62,6 +58,9 @@ jQuery(function($){
     var pre = $('pre code:first', node),
     src     = pre.html(),
     lines   = src.split("\n");
+    $.each(lines, function(idx, line){
+      lines[idx] = wrap( line, 'li' );
+    });
 
     $.each(infos, function(idx, info){
       var row = info.row,
@@ -76,12 +75,21 @@ jQuery(function($){
         '^ <span class="msg ', level, '">', msg, '</span>'
       ].join('');
 
-      lines[row] = lines[row].replace(/^(\s*)(\S.*)(\s*)$/, pattern);
+      if (row > 0) {
+        row --;
+      }
+      var code = lines[row].replace(/^<li>|<\/li>$/g, '');
+      code = code.replace(/^(\s*)(\S.*)(\s*)$/, pattern);
+      lines[row] = wrap( code, 'li', 'err' );
     });
 
-    src     = lines.join("\n");
+    src     = "<ol>"+lines.join("\n")+"</ol>";
     pre.html(src);
       
+  }
+
+  function wrap(code, tag, cls){
+    return '<' + tag + (cls?' class="'+cls+'"' : '' ) + '>' + code + '</' + tag + '>';
   }
 
   preparePage();

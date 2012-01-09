@@ -14,7 +14,6 @@
       .msg.info { color: #699D36; font-weight:bold; }
       pre code { font-family:"Lucida Sans Typewriter", "consolas", monospace; line-height:1.5; font-size:14px; }
       pre code ol { padding-left:1em; }
-      pre code li { line-height:7px; }
       pre code li.err { color:red; }
       pre code li.err span { color:#808080; }
       pre code li span { line-height:20px; }
@@ -26,18 +25,17 @@
   %body
     %script( src="http://style.china.alibaba.com/js/lib/fdev-v4/core/fdev-min.js" )
     %script{ :src => url("/scripts/html5uploader.js") }
-    %script{ :src => url("/scripts/check.js") }
+    %script{ :src => url("/scripts/check.js?v=20120109") }
     .container
-      .sidebar
-        .actions
-          在文本框中输入代码并检查，或将文件拖放到到文本框内
-        %textarea.input( placeholder="在此输入代码，或将文件拖到这里" )
-        %p
-          类型
-          %select( name="syntax" )
-            %option CSS
-            %option Javascript
-            %option HTML
-          %button.submit.btn.primary 检查
+      .actions
+        在文本框中输入代码并检查，或将文件拖放到到文本框内
+      %textarea.input( placeholder="在此输入代码，或将文件拖到这里" )
+      %p
+        类型
+        %select( name="syntax" )
+          %option CSS
+          %option Javascript
+          %option HTML
+        %button.submit.btn.primary 检查
       .content
         #src

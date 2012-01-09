@@ -58,6 +58,7 @@ jQuery(function($){
     var pre = $('pre code:first', node),
     src     = pre.html(),
     lines   = src.split("\n");
+
     $.each(lines, function(idx, line){
       lines[idx] = wrap( line, 'li' );
     });
@@ -78,12 +79,12 @@ jQuery(function($){
       if (row > 0) {
         row --;
       }
-      var code = lines[row].replace(/^<li>|<\/li>$/g, '');
+      var code = lines[row].replace(/^<li[^>]*>|<\/li>$/g, '');
       code = code.replace(/^(\s*)(\S.*)(\s*)$/, pattern);
       lines[row] = wrap( code, 'li', 'err' );
     });
 
-    src     = "<ol>"+lines.join("\n")+"</ol>";
+    src     = "<ol>"+lines.join("")+"</ol>";
     pre.html(src);
       
   }

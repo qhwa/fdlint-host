@@ -40,3 +40,22 @@
         %button.submit.btn.primary 检查
       .content
         #src
+
+
+    <!-- Piwik --> 
+    :javascript
+      var pkBaseURL = (("https:" == document.location.protocol) ? "https://wd.alibaba-inc.com/piwik/" : "http://wd.alibaba-inc.com/piwik/");
+      document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+
+    :javascript
+      try {
+      var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 2);
+      piwikTracker.trackPageView();
+      piwikTracker.enableLinkTracking();
+      } catch( err ) {}
+    
+    %noscript
+      %p
+        %img( src="http://wd.alibaba-inc.com/piwik/piwik.php?idsite=2" )
+
+    <!-- End Piwik Tracking Code -->

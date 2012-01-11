@@ -14,6 +14,18 @@ configure do
   set :haml, :format => :html5
 end
 
+helpers do 
+
+  def js(path)
+    "<script type=\"text/javascript\" src=\"#{to path}\"></script>"
+  end
+
+  def css(path)
+    "<link type=\"text/css\" rel=\"stylesheet\" href=\"#{to path}\" />"
+  end
+
+end
+
 get('/') do
   haml :home
 end

@@ -4,6 +4,17 @@ jQuery(function($){
     $('.submit').bind('click', function(){
       check($('.input').val());
     });
+
+    $('.locator-content .prev').click(function(e){
+        e.preventDefault();
+        prevMsg();
+    });
+
+    $('.locator-content .next').click(function(e){
+        e.preventDefault();
+        nextMsg();
+    });
+
   }
 
   function check(code){
@@ -16,6 +27,7 @@ jQuery(function($){
 
   function clearResult () {
     $('#src').empty();
+    $('div.locator').addClass('hide');
   }
 
   function send(code, handler){
@@ -28,6 +40,7 @@ jQuery(function($){
   function onReceiveResult(data) {
     var obj = $.parseJSON(data);
     parseCheckResult(obj.filename, obj.src, obj.success, obj.info);
+    buildMsgList();
   }
 
   function parseCheckResult(filename, source, success, infos) {
@@ -40,6 +53,7 @@ jQuery(function($){
     } else {
       $('p.summ', node).text(filename+' has '+ infos.length+ ' message(s)');
       showResult(infos, node);
+      $('div.locator').removeClass('hide');
     }
   }
 
@@ -93,6 +107,43 @@ jQuery(function($){
     return '<' + tag + (cls?' class="'+cls+'"' : '' ) + '>' + code + '</' + tag + '>';
   }
 
+  function buildMsgList(){
+    $.msgs = $('li.err', '#src');
+    $.msgs.current = 0;
+  }
+
+  function nextMsg(){
+    setMsgIndex( getCurrentMsgIndex() +1);
+  }
+
+
+  function prevMsg(){
+    setMsgIndex( getCurrentMsgIndex() -1);
+  }
+
+  function setMsgIndex(i){
+      var el = $.msgs[i];
+      if(el){
+        console.log($.msgs.current, i);
+        $('body').scrollTo(el, 500, {offset:-50});
+        $($.msgs[$.msgs.current]).removeClass('cur');
+        $(el).addClass('cur');
+        $.msgs.current = i;
+      }
+  }
+
+  function getCurrentMsgIndex(){
+    var cur = 0, msgs = $.msgs;
+    for(var i=0,len=msgs.length;i<len;i++){
+        var el = msgs[i];
+        if($(el).offset().top > document.body.scrollTop + 40){
+            cur = i;
+            break;
+        }
+    }
+    return cur;
+  }
+
   preparePage();
 
   $('textarea.input')
@@ -117,5 +168,7 @@ jQuery(function($){
     .bind('uploaded', function(evt, data){
       onReceiveResult(data);
     });
+
+  window.nextMsg = nextMsg;
 
 });

@@ -90,11 +90,12 @@ jQuery(function($){
         '^ <span class="msg ', level, '">', msg, '</span>'
       ].join('');
 
+
       if (row > 0) {
         row --;
       }
       var code = lines[row].replace(/^<li[^>]*>|<\/li>$/g, '');
-      code = code.replace(/^(\s*)(\S.*)(\s*)$/, pattern);
+      code = code.replace(/^(\s*)(\S.*)(\s*)$/m, pattern);
       lines[row] = wrap( code, 'li', 'err' );
     });
 
@@ -124,7 +125,6 @@ jQuery(function($){
   function setMsgIndex(i){
       var el = $.msgs[i];
       if(el){
-        console.log($.msgs.current, i);
         $('body').scrollTo(el, 500, {offset:-50});
         $($.msgs[$.msgs.current]).removeClass('cur');
         $(el).addClass('cur');

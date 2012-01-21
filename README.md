@@ -2,6 +2,8 @@
 
 This is the hosting version of [fdlint](https://github.com/qhwa/fdev-xray)
 
+![fdlint host snapshot](http://farm8.staticflickr.com/7006/6733996109_1c5256d527_z.jpg)
+
 ## Installation
 
     git clone git://github.com/qhwa/fdlint-host.git

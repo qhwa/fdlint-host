@@ -1,6 +1,6 @@
 # Web Host For fdlint
 
-This is the hosting version of [fdlint](https://github.com/qhwa/fdev-xray)
+This is the hosting version of [fdlint](https://github.com/qhwa/fdlint)
 
 ## Try it
 

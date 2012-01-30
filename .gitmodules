@@ -1,3 +1,6 @@
 [submodule "lib/xray"]
 	path = lib/xray
 	url = git://github.com/qhwa/fdev-xray.git
+[submodule "lib/fdlint"]
+	path = lib/fdlint
+	url = git@github.com:qhwa/fdlint.git

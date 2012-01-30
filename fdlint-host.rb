@@ -4,7 +4,7 @@ require 'sinatra'
 require 'haml'
 require 'base64'
 require 'json'
-require_relative 'lib/xray/lib/runner'
+require_relative 'lib/fdlint/lib/runner'
 require_relative 'app/helper/readstr'
 
 $runner = XRay::Runner.new

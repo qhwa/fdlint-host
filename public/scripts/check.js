@@ -15,6 +15,12 @@ jQuery(function($){
         nextMsg();
     });
 
+    $('.submit').ajaxStart(function(){
+      $(this).attr('disabled', true);
+    }).ajaxComplete(function(){
+      $(this).attr('disabled', false);
+    });
+
   }
 
   function check(code){
@@ -31,10 +37,16 @@ jQuery(function($){
   }
 
   function send(code, handler){
-    $.post('', {
-      data: code,
-      type: $('select').val()
-    }, handler);
+    $.ajax({
+      url: '',
+      type: 'POST',
+      data: {
+        data: code,
+        type: $('select').val()
+      },
+      timeout: 60000,
+      success: handler
+    });
   }
 
   function onReceiveResult(data) {

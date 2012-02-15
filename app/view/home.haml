@@ -5,7 +5,7 @@
     %meta( charset="utf-8" )
     %title fdlint - 让code review更轻松
     = css "/stylesheets/bootstrap.min.css"
-    = css "/stylesheets/style.css"
+    = css "/stylesheets/style.css?v=20120215"
 
   %body
     .container
@@ -13,7 +13,7 @@
         %ul
           %li 输入代码，选择相应的语法，点击检查按钮
           %li 或将文件拖到文本框内 （可多选）
-      %textarea.input( placeholder="在此输入代码，或将文件拖到这里" )
+      %textarea.input( placeholder="在此输入代码，或将文件拖到这里" )= @src
       %p
         类型
         %select( name="syntax" )
@@ -35,7 +35,10 @@
     = js "http://style.china.alibaba.com/js/lib/fdev-v4/core/fdev-min.js" 
     = js "http://style.china.alibaba.com/js/lib/fdev-v4/widget/ui/scrollto.js" 
     = js "/scripts/html5uploader.js"
-    = js "/scripts/check.js?v=20120113"
+    = js "/scripts/check.js?v=20120215"
+
+    - if @result
+      %script= "results = #{@result};"
 
     <!-- Piwik --> 
     :javascript

@@ -38,12 +38,21 @@ post '/' do
     bin = bin[:tempfile].read 
   end
   text, encoding = readstr(bin)
+
   if name
-    result = $runner.send(:"check", text, name)
+    result = $runner.send("check", text, name)
   else
-    result = $runner.send(:"check_#{check_type params['type']}", text)
+    result = $runner.send("check_#{check_type params['type']}", text)
   end
-  format_result name, text, result
+
+  @result = format_result name, text, result
+
+  if params['format'] == 'html'
+    @src = text
+    haml :home
+  else
+    @result
+  end
 end
 
 def check_type(type)

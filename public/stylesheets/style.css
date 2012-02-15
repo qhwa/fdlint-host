@@ -39,3 +39,5 @@ code { background-color:transparent; }
   width: 32px;
   height: 32px;
 }
+.summ { color: red; }
+.summ.good { color: inherit; }

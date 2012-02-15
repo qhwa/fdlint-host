@@ -50,8 +50,10 @@ jQuery(function($){
   }
 
   function onReceiveResult(data) {
-    var obj = $.parseJSON(data);
-    parseCheckResult(obj.filename, obj.src, obj.success, obj.info);
+    if (typeof(data) == 'string') {
+      data = $.parseJSON(data);
+    }
+    parseCheckResult(data.filename, data.src, data.success, data.info);
     buildMsgList();
   }
 
@@ -63,7 +65,8 @@ jQuery(function($){
     if(success){
       congraturation(filename, node);
     } else {
-      $('p.summ', node).text(filename+' has '+ infos.length+ ' message(s)');
+      $('p.summ', node)
+        .text(filename+' has '+ infos.length+ ' message(s)');
       showResult(infos, node);
       $('div.locator').removeClass('hide');
     }
@@ -182,5 +185,9 @@ jQuery(function($){
     });
 
   window.nextMsg = nextMsg;
+
+  if ('results' in window) {
+    onReceiveResult( results );
+  }
 
 });

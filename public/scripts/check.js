@@ -58,7 +58,7 @@ jQuery(function($){
   }
 
   function parseCheckResult(filename, source, success, infos) {
-    filename = filename || 'This file';
+    filename = filename || '这个文件';
     var escaped = $('<pre />').text(source).html();
     var node = $('<li />').append('<p class="summ" />').appendTo('#src');
     $('<pre />').html('<code>'+escaped+'</code>').appendTo(node);
@@ -66,7 +66,7 @@ jQuery(function($){
       congraturation(filename, node);
     } else {
       $('p.summ', node)
-        .text(filename+' has '+ infos.length+ ' message(s)');
+        .text(filename+'有 '+ infos.length+ ' 处地方可能有问题');
       showResult(infos, node);
       $('div.locator').removeClass('hide');
     }

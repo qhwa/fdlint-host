@@ -4,23 +4,22 @@
   %head
     %meta( charset="utf-8" )
     %title fdlint - 让code review更轻松
-    = css "/stylesheets/bootstrap.min.css"
-    = css "/stylesheets/style.css?v=20120215"
+    = css "/stylesheets/bootstrap.min.css?v=20120308"
+    = css "/stylesheets/bootstrap-responsive.min.css"
+    = css "/stylesheets/style.css?v=20120308"
 
   %body
     .container
-      .actions
+      .form-actions
         %ul
           %li 输入代码，选择相应的语法，点击检查按钮
           %li 或将文件拖到文本框内 （可多选）
       %textarea.input( placeholder="在此输入代码，或将文件拖到这里" )= @src
       %p
-        类型
-        %select( name="syntax" )
-          %option CSS
-          %option Javascript
-          %option HTML
-        %button.submit.btn.primary 检查
+        .submit.btn-group
+          %button.btn-primary.btn.css 检查CSS
+          %button.btn-primary.btn.html 检查HTML
+          %button.btn-primary.btn.js 检查JS
       .content
         .locator-wrapper
           .locator.hide

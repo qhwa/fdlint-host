@@ -1,8 +1,9 @@
 jQuery(function($){
 
   function preparePage(){
-    $('.submit').bind('click', function(){
-      check($('.input').val());
+    $('.submit .btn').bind('click', function(){
+      var syntax = getSyntax(this);
+      check($('.input').val(), syntax);
     });
 
     $('.locator-content .prev').click(function(e){
@@ -15,7 +16,7 @@ jQuery(function($){
         nextMsg();
     });
 
-    $('.submit').ajaxStart(function(){
+    $('.submit .btn').ajaxStart(function(){
       $(this).attr('disabled', true);
     }).ajaxComplete(function(){
       $(this).attr('disabled', false);
@@ -23,11 +24,19 @@ jQuery(function($){
 
   }
 
-  function check(code){
+  function getSyntax(dom){
+      dom = $(dom);
+      return dom.hasClass('css') ? 'css' :
+          dom.hasClass('js') ? 'js' :
+          dom.hasClass('html') ? 'html' : '';
+  }
+
+
+  function check(code, syntax){
     if(code){
       clearResult();
       //TODO: err event handlers
-      send(code, onReceiveResult);
+      send(code, syntax, onReceiveResult);
     }
   }
 
@@ -36,13 +45,13 @@ jQuery(function($){
     $('div.locator').addClass('hide');
   }
 
-  function send(code, handler){
+  function send(code, syntax, handler){
     $.ajax({
       url: '',
       type: 'POST',
       data: {
         data: code,
-        type: $('select').val()
+        type: syntax
       },
       timeout: 60000,
       success: handler

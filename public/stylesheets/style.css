@@ -1,3 +1,9 @@
+.logo { 
+    background:transparent url(../images/fdlint-logo-white-small.png) no-repeat left top;
+    text-indent: -10000px;
+    width: 159px;
+    height: 75px;
+}
 .src.fatal { border-bottom:1px dotted #F00; }
 .src.warn, .src.error { border-bottom:1px dotted #FF7300; background-color:#FEE9CC; }
 .src.info { background-color:#F4FAFF; color:#2F6F9F; }

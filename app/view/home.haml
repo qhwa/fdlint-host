@@ -10,6 +10,7 @@
 
   %body
     .container
+      %h1.logo fdlint
       .form-actions
         %ul
           %li 输入代码，选择相应的语法，点击检查按钮
@@ -17,9 +18,15 @@
       %textarea.input( placeholder="在此输入代码，或将文件拖到这里" )= @src
       %p
         .submit.btn-group
-          %button.btn-primary.btn.css 检查CSS
-          %button.btn-primary.btn.html 检查HTML
-          %button.btn-primary.btn.js 检查JS
+          %button.btn-primary.btn.css 
+            %i.icon-search.icon-white
+            检查CSS
+          %button.btn-primary.btn.html 
+            %i.icon-search.icon-white
+            检查HTML
+          %button.btn-primary.btn.js 
+            %i.icon-search.icon-white
+            检查JS
       .content
         .locator-wrapper
           .locator.hide
@@ -29,6 +36,12 @@
               .next 
                 %a.btn( href="#next" ) &#9660;
         #src
+
+      %footer
+        source:
+        %a(href="https://github.com/qhwa/fdlint") fdlint
+        ,
+        %a(href="https://github.com/qhwa/fdlint-host") fdlint-host
 
 
     = js "http://style.china.alibaba.com/js/lib/fdev-v4/core/fdev-min.js?"

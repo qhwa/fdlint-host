@@ -4,10 +4,12 @@ require 'sinatra'
 require 'haml'
 require 'base64'
 require 'json'
+require 'logger'
 require_relative 'lib/fdlint/lib/runner'
 require_relative 'app/helper/readstr'
 
 $runner = XRay::Runner.new
+$logger ||= Logger.new(STDOUT)
 
 configure do 
   set :views, File.dirname(__FILE__) << '/app/view'
@@ -39,6 +41,9 @@ post '/' do
   end
   text, encoding = readstr(bin)
 
+  $logger.info "receive post #{params}"
+  t = Time.now
+
   if name
     result = $runner.send("check", text, name)
   else
@@ -46,6 +51,9 @@ post '/' do
   end
 
   @result = format_result name, text, result
+
+  t = (Time.now - t)*1000
+  $logger.info "time elapsed: %d ms" % t
 
   if params['format'] == 'html'
     @src = text

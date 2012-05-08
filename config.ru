@@ -1,6 +1,9 @@
 require 'sinatra'
+require 'logger'
 
 set :env, :production
+
+$logger = Logger.new 'log/visit.log'
 
 if defined?(run) 
   disable :run

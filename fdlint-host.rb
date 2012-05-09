@@ -33,13 +33,15 @@ get('/') do
 end
 
 post '/' do
-  bin = params['data']
+  text = params['data']
   name = nil
-  if Hash === bin and bin[:tempfile]
-    name = bin[:filename]
-    bin = bin[:tempfile].read 
+  if Hash === text and text[:tempfile]
+    name = text[:filename]
+    text = text[:tempfile].read
   end
-  text, encoding = readstr(bin)
+
+  text.utf8!
+  name = name.utf8! unless name.nil?
 
   $logger.info "receive post #{params}"
   t = Time.now

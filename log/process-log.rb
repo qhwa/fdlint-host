@@ -24,8 +24,8 @@ def is_time?(line)
 end
 
 def extract_src(line)
-  txt = line[/"data"=>"(.*)",/, 1]
-  src = Array.class_eval(%Q{["#{txt}"]}).first
+  txt = line[/"data"=>"(.*?)(?<!\\)",/, 1]
+  src = String.class_eval(%Q{"#{txt}"})
 end
 
 src = find_broken_src_from_log( 'visit.log' )

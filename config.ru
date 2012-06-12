@@ -1,10 +1,13 @@
 require 'sinatra'
 require 'logger'
+require 'fileutils'
 
 set :env, :production
 
-logfile = 'log/visit.log'
+logfile = File.join(File.expand_path(File.dirname(__FILE__)), 'log/visit.log')
+
 unless File.exist?(logfile)
+  FileUtils.mkdir_p('log')
   File.open(logfile, 'w') do |f|
     f.puts Time.now
   end

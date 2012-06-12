@@ -11,10 +11,7 @@
   %body
     .container
       %h1.logo fdlint
-      .form-actions
-        %ul
-          %li 输入代码，选择相应的语法，点击检查按钮
-          %li 或将文件拖到文本框内 （可多选）
+
       %textarea.input( placeholder="在此输入代码，或将文件拖到这里" )= @src
       %p
         .submit.btn-group
@@ -38,16 +35,15 @@
         #src
 
       %footer
-        source:
-        %a(href="https://github.com/qhwa/fdlint") fdlint
-        ,
-        %a(href="https://github.com/qhwa/fdlint-host") fdlint-host
+        %a( href="https://github.com/qhwa/fdlint-host" )
+          %img( style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub")
 
 
     = js "http://style.china.alibaba.com/js/lib/fdev-v4/core/fdev-min.js?"
     = js "http://style.china.alibaba.com/js/lib/fdev-v4/widget/ui/scrollto.js" 
     = js "/scripts/html5uploader.js"
     = js "/scripts/check.js?v=2012021502"
+
 
     - if @result
       :javascript

@@ -33,7 +33,10 @@ get('/') do
 end
 
 post '/' do
+  puts params
   text = params['data']
+  options = prepare_options(params['options'] || {})
+
   name = nil
   if Hash === text and text[:tempfile]
     name = text[:filename]
@@ -47,9 +50,9 @@ post '/' do
   t = Time.now
 
   if name
-    result = $runner.send("check", text, name)
+    result = $runner.send("check", text, name, options)
   else
-    result = $runner.send("check_#{check_type params['type']}", text)
+    result = $runner.send("check_#{check_type params['type']}", text, options)
   end
 
   @result = format_result name, text, result
@@ -100,4 +103,12 @@ def format_result(name, text, results=[])
       :filename => name
     })
   end
+end
+
+def prepare_options(options)
+  ret = {}
+  options.each do |k, v|
+    ret[k.to_sym] = v
+  end
+  ret
 end

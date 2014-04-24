@@ -110,7 +110,7 @@ jQuery(function($){
       pattern = [
         '$1<span class="src ', level, '" ', 'data-msg="', msg, '">',
         '$2</span>',
-        '$3\n', '$1', space,
+        '$3\n', space,
         '^ <span class="msg ', level, '">', msg, '</span>'
       ].join('');
 
@@ -118,8 +118,8 @@ jQuery(function($){
       if (row > 0) {
         row --;
       }
-      var code = lines[row].replace(/^<li[^>]*>|<\/li>$/g, '');
-      code = code.replace(/^(\s*)(\S.*)(\s*)$/m, pattern);
+      var code   = lines[row].replace(/^<li[^>]*>|<\/li>$/g, '');
+      code       = code.replace(/^(\s*)(\S.*)(\s*)$/m, pattern);
       lines[row] = wrap( code, 'li', 'err' );
     });
 

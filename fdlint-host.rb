@@ -5,10 +5,8 @@ require 'haml'
 require 'base64'
 require 'json'
 require 'logger'
-require_relative 'lib/fdlint/lib/runner'
-require_relative 'app/helper/readstr'
+require 'fdlint'
 
-$runner = XRay::Runner.new
 $logger ||= Logger.new(STDOUT)
 
 configure do 
@@ -33,30 +31,25 @@ get('/') do
 end
 
 post '/' do
-  puts params
-  text = params['data']
+  text    = params['data']
   options = prepare_options(params['options'] || {})
+  name    = nil
 
-  name = nil
   if Hash === text and text[:tempfile]
     name = text[:filename]
     text = text[:tempfile].read
+    name.utf8! if name
+    text.utf8!
   end
-
-  text.utf8!
-  name = name.utf8! unless name.nil?
 
   $logger.info "receive post #{params}"
   t = Time.now
 
-  if name
-    result = $runner.send("check", text, name, options)
-  else
-    result = $runner.send("check_#{check_type params['type']}", text, options)
-  end
+  options[:text] = text
 
-  @result = format_result name, text, result
-
+  @results = Fdlint::Validator.new( nil, options ).validate
+  @results = format_result name, text, @results
+  
   t = (Time.now - t)*1000
   $logger.info "time elapsed: %d ms" % t
 
@@ -64,18 +57,7 @@ post '/' do
     @src = text
     haml :home
   else
-    @result
-  end
-end
-
-def check_type(type)
-  case type.downcase
-    when /js/, /javascript/
-      "js"
-    when /css/, /stylesheet/
-      "css"
-    else
-      "html"
+    @results
   end
 end
 
@@ -110,5 +92,6 @@ def prepare_options(options)
   options.each do |k, v|
     ret[k.to_sym] = v
   end
+  ret[:syntax] = options['type']
   ret
 end
